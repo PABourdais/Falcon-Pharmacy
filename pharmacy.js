@@ -36,6 +36,12 @@ function updateFervex(drug) {
   drug.benefit = clampBenefit(drug.benefit + improvement);
 }
 
+function updateDafalgan(drug) {
+  drug.expiresIn -= 1;
+  const degradation = drug.expiresIn < 0 ? 4 : 2;
+  drug.benefit = clampBenefit(drug.benefit - degradation);
+}
+
 // Magic Pill never expires or loses benefit
 function updateMagicPill() {}
 
@@ -43,6 +49,7 @@ const DRUG_HANDLERS = {
   "Herbal Tea": updateHerbalTea,
   Fervex: updateFervex,
   "Magic Pill": updateMagicPill,
+  Dafalgan: updateDafalgan,
 };
 
 export class Pharmacy {

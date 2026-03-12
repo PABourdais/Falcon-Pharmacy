@@ -90,6 +90,24 @@ describe("Pharmacy", () => {
     });
   });
 
+  describe("Dafalgan", () => {
+    it("should decrease benefit by 2 and expiresIn by 1", () => {
+      expect(update("Dafalgan", 10, 20)).toEqual(new Drug("Dafalgan", 9, 18));
+    });
+
+    it("should decrease benefit by 4 after expiration", () => {
+      expect(update("Dafalgan", 0, 20)).toEqual(new Drug("Dafalgan", -1, 16));
+    });
+
+    it("should not decrease benefit below 0", () => {
+      expect(update("Dafalgan", 10, 1)).toEqual(new Drug("Dafalgan", 9, 0));
+    });
+
+    it("should not decrease benefit below 0 after expiration", () => {
+      expect(update("Dafalgan", 0, 3)).toEqual(new Drug("Dafalgan", -1, 0));
+    });
+  });
+
   describe("Magic Pill", () => {
     it("should not change benefit or expiresIn", () => {
       expect(update("Magic Pill", 10, 40)).toEqual(
